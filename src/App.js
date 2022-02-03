@@ -1,23 +1,35 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route } from "react-router-dom";
+import Country from './components/Country';
+import Search from './components/Search';
+import Profile from './components/Profile';
 import './App.css';
 
 function App() {
+  const [fetchUrl, setFetchUrl] = useState('https://restcountries.com/v3.1/all');
+  const [countries, setCountries] = useState(null);
+  const [id, setId] = useState('');
+
+  useEffect(() => {
+    fetch(fetchUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(response => response.json())
+      .then(data => setCountries(data))
+  }, [fetchUrl])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path='/' element={<>
+          <Search searchChange={(url) => setFetchUrl(url)} />
+          <Country countries={countries} />
+        </>} />
+        <Route path='/country' element={<Profile id={id} />} />
+      </Routes>
     </div>
   );
 }
