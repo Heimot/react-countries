@@ -1,0 +1,23 @@
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.box {
+    display: flex;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    flex-basis: 20%;
+    margin: 10px 0px 10px 0px;
+}
+
+.flag {
+    max-width: 200px;
+}
+
+.countrydata {
+    margin-left: 10px;
+    text-align: left;
+}
